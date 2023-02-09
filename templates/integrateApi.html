@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask API Integration</title>
+  </head>
+  <body>
+    <h1>API Response:</h1>
+    <div id="api-response">
+        <input type="text" id="firstInput">
+        <input type="text" id="secInput">
+        <button onclick="getData()">Calculate</button>
+        <div>
+            <p id="addition"></p>
+            <p id="subtraction"></p>
+            <p id="multiplication"></p>
+            <p id="division"></p>
+            <p id="average"></p>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      // Make a GET request using Axios
+      function getData(){
+            let firstInput = document.getElementById("firstInput").value;
+            let secInput = document.getElementById("secInput").value;
+
+            let data = {firstInput, secInput}
+            console.log(data)
+          axios.post("http://127.0.0.1:2000/result", data)
+          .then(function(response) {
+            console.log(response)
+            document.getElementById("addition").innerHTML = response.data.addition
+            document.getElementById("subtraction").innerHTML = response.data.subtraction
+            document.getElementById("multiplication").innerHTML = response.data.multiplication
+            document.getElementById("division").innerHTML = response.data.division
+            document.getElementById("average").innerHTML = response.data.average
+            })
+            .catch(function(error) {
+                console.error(error);
+            });
+        }
+            </script>
+  </body>
+</html>
